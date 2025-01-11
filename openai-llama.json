@@ -1,0 +1,978 @@
+{
+    "64fbde6e-4d63-49ea-9770-a5f50bb32973-1403_10_11.jpeg": {
+        "openai": {
+            "name": "اسحاق احمدی الیاس",
+            "national_id": "۹۰۰۲۹۷",
+            "organization_name": "شهرداری تربت جام",
+            "total_payment": "۹۹۵۷۴۱۷۶",
+            "year": "۱۴۰۲",
+            "month": "دی",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "نام و نام خانوادگی",
+            "national_id": "1234567890",
+            "organization_name": "تربیت دستور نو",
+            "total_payment": "خالص دریافتی 123456789",
+            "year_month": "1401/06",
+            "confidence": 100
+        }
+    },
+    "4047eee8-89aa-4014-97dc-b395df9019ac-1403_10_11.jpeg": {
+        "openai": {
+            "name": "خانکی ر بی بو منشم خاتش",
+            "national_id": "337198",
+            "organization_name": "واحد سازمانی توحید",
+            "total_payment": "2537150",
+            "year": "",
+            "month": "",
+            "confidence": 75
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "نام و نام خانوادگی",
+            "national_id": "66656615",
+            "organization_name": "organization_name",
+            "total_payment": "670605000",
+            "year_month": [
+                {
+                    "year": 1400,
+                    "month": 8
+                },
+                {
+                    "year": 1401,
+                    "month": 4
+                }
+            ]
+        }
+    },
+    "4bb7c380-f9c4-4301-a5da-faf015a2ab6d-1403_10_11.jpeg": {
+        "openai": {
+            "name": "کاکاوند کاظم",
+            "national_id": "1004106041",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "114,294,794",
+            "year": "1401",
+            "month": "آبان",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "سندی سپت و شرکت ری.نمای ِدوستی پروژه",
+            "total_payment": "",
+            "year_and_month": "",
+            "confidence": 0
+        }
+    },
+    "340f507f-f0e1-497b-8901-0fa879cd3aa1-1403_10_11.jpeg": {
+        "openai": {
+            "name": "آقای علی الباد",
+            "national_id": "4240414326",
+            "organization_name": "",
+            "total_payment": "99728542",
+            "year_and_month": "1402-08",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "شفقت",
+            "total_payment": "595679",
+            "year_and_month": "1401/09/01",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "date": "",
+            "confidence": 0
+        }
+    },
+    "d4a7ed78-49f0-4486-a1e3-5068ceaccfaf-1403_10_11.jpeg": {
+        "openai": {
+            "name": "لفطه حميدى راد",
+            "national_id": "514264",
+            "organization_name": "",
+            "total_payment": "2268586",
+            "year": "1402",
+            "month": "شهریور",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "شریفی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "541242",
+            "year": "1402",
+            "month": "",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "درياو و درياوان",
+            "total_payment": "1,157,765",
+            "year_month": "1401"
+        }
+    },
+    "6cef5ea8-7101-4a55-9860-24821ec2021e-1403_10_11.jpeg": {
+        "openai": {
+            "name": "احمد شهریاری",
+            "national_id": "0310618185",
+            "organization_name": "توسعه راهکارهای هوشمند آدران",
+            "total_payment": "1,857,675 ریال",
+            "year": "1402",
+            "month": "آبان",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "یوسف ثانی",
+            "national_id": "1289",
+            "organization_name": "شرکت در乎 آهن",
+            "total_payment": "71066181",
+            "year": "1402",
+            "month": "02",
+            "confidence": 90
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "UrOOO بابا",
+            "national_id": "328942188\\u0648",
+            "organization_name": "NurddO e-dnamhsooH",
+            "total_payment": "22291260",
+            "year_month": "1401/01/21",
+            "confidence": 69
+        }
+    },
+    "2fc086fb-d1ea-49b8-b1fd-057a6031b1bd-1403_10_11.jpeg": {
+        "openai": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "llama": {
+            "name": "",
+            "national_id": "211411",
+            "organization_name": "",
+            "total_payment": "272",
+            "year": "1399",
+            "month": "",
+            "confidence": 50
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "11411",
+            "year_and_month": "20",
+            "confidence": 60
+        }
+    },
+    "5a794ea7-631d-42fe-89be-c32884cf63f1-1403_10_11.png": {
+        "openai": {
+            "name": "محمد کمالی",
+            "national_id": "",
+            "organization_name": "شرکت نظم آفرین آریان",
+            "total_payment": "107,243,389",
+            "year": "",
+            "month": "مهر",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "ایران افشین",
+            "national_id": "9388104702",
+            "organization_name": "",
+            "total_payment": "6,339,856",
+            "year_and_month": "8/1401",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "نام و نام خانوادگی",
+            "national_id": "8282",
+            "organization_name": "رنیفمزافرین",
+            "total_payment": "6,933,658",
+            "year_month": "1400/01",
+            "confidence": 85
+        }
+    },
+    "16a13165-e5cb-47e1-9efd-5794c6c41a89-1403_10_11.jpeg": {
+        "openai": {
+            "name": "احترام سیفی سادولی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "3,944,998",
+            "year": "1401",
+            "month": "شهریور",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "سید سعید سیف زاده",
+            "national_id": "",
+            "organization_name": "شرکت سهامی خاص",
+            "total_payment": "1475000",
+            "year": "1401",
+            "month": "3",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "نام و نام خانوادگی",
+            "national_id": "1234567890",
+            "organization_name": "آرامبیک مبانی",
+            "total_payment": "123456",
+            "year_and_month": "1400/01"
+        }
+    },
+    "65134246-3c88-489a-a69c-df02adb52883-1403_10_11.jpeg": {
+        "openai": {
+            "name": "رضا مهربانی",
+            "national_id": "",
+            "organization_name": "تجارت ایران مال",
+            "total_payment": "2177584",
+            "year": "1402",
+            "month": "دی",
+            "confidence": 90
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "فیما فیما",
+            "total_payment": "",
+            "year_month": ""
+        }
+    },
+    "ed46262b-dca6-49f6-a2f6-f7e9938a06da-1403_10_11.jpeg": {
+        "openai": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "قابلي پرداخت: ق.7",
+            "year": "",
+            "month": "",
+            "confidence": 30
+        }
+    },
+    "30034b7a-7a44-4438-bc11-874d5cc40377-1403_10_11.jpeg": {
+        "openai": {
+            "name": "سپیده جلالی فراهانی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "۳۲۲۹۷۲۲۲",
+            "year": "۱۴۰۲",
+            "month": "دی",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "شرکت یکصف .",
+            "total_payment": "",
+            "year_and_month": "",
+            "confidence": 50
+        }
+    },
+    "7d13bbbe-cb20-4ab5-b8ad-a0d470b173b8-1403_10_11.jpeg": {
+        "openai": {
+            "name": "میلاد امیر اسمعیلی",
+            "national_id": "3170128965",
+            "organization_name": "سازمان همیاری شهرداری های استان کرمان",
+            "total_payment": "63803100",
+            "year": "1403",
+            "month": "اردیبهشت",
+            "confidence": 95
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "الفرد سبز نام خانوادگی",
+            "national_id": "ملی"
+        }
+    },
+    "745f48b3-f157-4455-ad9e-c04dfb57b370-1403_10_11.jpeg": {
+        "openai": {
+            "name": "حین قدسی",
+            "national_id": "",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "287338229 ریال",
+            "year": "1393",
+            "month": "",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "شمس شعبانپور",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "281,330",
+            "year": "1400",
+            "month": "12",
+            "confidence": 70
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "اکبر عباسی",
+            "national_id": "1379510937",
+            "organization_name": "paddle",
+            "total_payment": "28273690",
+            "year": "1401",
+            "month": "2",
+            "confidence": 95
+        }
+    },
+    "f8e66174-0a91-4541-bd68-f8a691f55df1-1403_10_11.jpeg": {
+        "openai": {
+            "name": "",
+            "national_id": "2492",
+            "organization_name": "وزارت آموزش و پرورش",
+            "total_payment": "533,289",
+            "year": "1402",
+            "month": "آبان",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "ایمان نامور",
+            "national_id": "2229992755",
+            "organization_name": "",
+            "total_payment": "542,800",
+            "year_and_month": "1401/11",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year_and_month": ""
+        }
+    },
+    "7a526cd8-61e1-4b72-9efc-c2d039b830e0-1403_10_11.jpeg": {
+        "openai": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "حکم افزایش مستمری بازنشستگی مهاباد",
+            "total_payment": "۷۹۹۷۱۸۹۱۷",
+            "year": "۱۴۰۲",
+            "month": "",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "حسین افضلی",
+            "national_id": "1648810429",
+            "organization_name": "وزارت علوم تحقیقات و فناوری",
+            "total_payment": "6446755",
+            "year": "1402",
+            "month": "9",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "2068013746",
+            "organization_name": " institution",
+            "total_payment": "2517900",
+            "year_month": "1401/12",
+            "confidence": 90
+        }
+    },
+    "17ba8a25-f569-4fd7-85d4-ac1a911943cd-1403_10_11.jpeg": {
+        "openai": {
+            "name": "مهدی مدیر",
+            "national_id": "41153884",
+            "organization_name": "",
+            "total_payment": "2328",
+            "year": "1402",
+            "month": "مرداد",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "مرداد ماه ۱۳۰۲",
+            "national_id": "",
+            "organization_name": "بانک کارآفرین",
+            "total_payment": "5812921",
+            "year_and_month": "فروردین ۱۴۰۲",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "سندی بیدی کارت :",
+            "total_payment": "۵۲۲،۰۰۰ تومان",
+            "year_and_month": "هجری شمسی - نمیشد"
+        }
+    },
+    "1a124235-9cc3-4d04-841c-fcb472e8a35d-1403_10_11.jpeg": {
+        "openai": {
+            "name": "جاوید قائمی بورکویج",
+            "national_id": "",
+            "organization_name": "مرکززینه اتغلالات",
+            "total_payment": "1,923,921",
+            "year": "1",
+            "month": "11",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "جاوید قائمی بورکویج",
+            "national_id": "",
+            "organization_name": "مرکز فزینا اتغلالات",
+            "total_payment": "۱,۹۲۳,۹۲۱",
+            "year": "۱۱",
+            "month": "",
+            "confidence": 90
+        }
+    },
+    "86b897fd-f790-4cf2-958f-be87c6204297-1403_10_11.jpeg": {
+        "openai": {
+            "name": "پیمان محرمی",
+            "national_id": "5040035608",
+            "organization_name": "بانک ملت",
+            "total_payment": "600369839 ریال",
+            "year": "",
+            "month": "",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "تبریی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "697413413",
+            "year": "1401",
+            "month": "12",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "پیمان محرمی",
+            "national_id": "5040035608",
+            "organization_name": "",
+            "total_payment": "6003698389 ریال",
+            "year_and_month": "",
+            "confidence": 85
+        }
+    },
+    "56392d7a-ad8d-40bb-bc83-1afc993f2c94-1403_10_11.jpeg": {
+        "openai": {
+            "name": "محمد محرابی",
+            "national_id": "0606434741",
+            "organization_name": "تهران-غرب شهر تهران",
+            "total_payment": "686,510,865 ریال",
+            "year": "1401",
+            "month": "آبان",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "محمود کسری",
+            "national_id": "0060255518",
+            "organization_name": "",
+            "total_payment": "693693",
+            "year": "1401",
+            "month": "12",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "محمد محرابی",
+            "national_id": "0606447441",
+            "organization_name": "تهران-غرب",
+            "total_payment": "686,510,865 ریال",
+            "year": "1402",
+            "month": "آبان",
+            "confidence": 90
+        }
+    },
+    "4fd998da-fc8f-46fd-bcf1-a77f0ec4ccb3-1403_10_11.jpeg": {
+        "openai": {
+            "name": "یماد",
+            "national_id": "",
+            "organization_name": "شرکت شبرین عسل",
+            "total_payment": "22270885",
+            "year": "1401",
+            "month": "مهر",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "عسل شیرین",
+            "national_id": "135259",
+            "organization_name": "موسسه حسابرسی",
+            "total_payment": "6977",
+            "year": "1400",
+            "month": "3",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "یماد",
+            "national_id": "13525",
+            "organization_name": "شرکت شیرین عسل",
+            "total_payment": "2285285",
+            "year": "1401",
+            "month": "مهر",
+            "confidence": 85
+        }
+    },
+    "b102d037-1653-4587-b34a-dd1cdbd3a34f-1403_10_11.jpeg": {
+        "openai": {
+            "name": "حسین فدائی بازنشسته",
+            "national_id": "3670602194",
+            "organization_name": "سازمان بازنشستگی کشوری",
+            "total_payment": "113713236",
+            "year": "1402",
+            "month": "دی",
+            "confidence": 90
+        },
+        "llama": {
+            "name": "حسین فدایی",
+            "national_id": "1670338113",
+            "organization_name": "شرکت پالایش نفت بندرعباس",
+            "total_payment": "41687050",
+            "year": "1399",
+            "month": "12",
+            "confidence": 90
+        },
+        "mistral_DIDNT_WORKED": {
+            "name_and_name_khani": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year_and_month": "",
+            "confidence": 0
+        }
+    },
+    "eff7b87c-a5c1-4859-8e39-d268ce42a570-1403_10_11.jpeg": {
+        "openai": {
+            "name": "طاهر آلبوغبيش",
+            "national_id": "",
+            "organization_name": "کشت وصنعت میرزا کوچک خان",
+            "total_payment": "۲۷۴۴۰۹۸۰۰",
+            "year_and_month": "۱۴۰۲/۰۸",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "آبان طاهر",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "5000000",
+            "year_and_month": "1402/10",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "طاهر آلبوغبيش",
+            "national_id": "",
+            "organization_name": "کشت و صنعت میرزاکوچک خان",
+            "total_payment": "2,740,409,800 ریال",
+            "year": "1402",
+            "month": "آبان",
+            "confidence": 85
+        }
+    },
+    "d31a6a8e-f9c7-426e-a32f-af109ff69f62-1403_10_11.jpeg": {
+        "openai": {
+            "name": "عطیه صدری",
+            "national_id": "6019486430",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "185331601",
+            "year_and_month": "1402 آذر",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "عطیه صدری",
+            "national_id": "6019486430",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "18053331",
+            "year_and_month": "1402-08",
+            "confidence": 85
+        }
+    },
+    "9e6444e1-d8b5-40c5-8236-f4e2b8af8cf8-1403_10_11.jpeg": {
+        "openai": {
+            "name": "رضا واعظی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "٢٢٣٣٥٧٧٣",
+            "year": "١٤٠٢",
+            "month": "خرداد",
+            "confidence": 90
+        },
+        "llama": {
+            "name": "ساعت کارکرد haunted",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "245,800",
+            "year_and_month": "1401/08",
+            "confidence": 70
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "رضا واعظي",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "۲۴۴۲۰۲۲۵۹",
+            "year": "۱۴۰۰",
+            "month": "مهر",
+            "confidence": 80
+        }
+    },
+    "cdb6fc44-8cad-4b7c-b176-376808875804-1403_10_11.jpeg": {
+        "openai": {
+            "name": "عقابی نژاد",
+            "national_id": "5859363516",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "582000",
+            "year": "1402",
+            "month": "",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year_and_month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "عقابی نژاد",
+            "national_id": "5859343516",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "دو میلیون و پانصد و شصت و هفت هزار تومان (2,567,000 ریال)",
+            "year_and_month": "1402",
+            "confidence": 80
+        }
+    },
+    "1a172ba1-17e0-4d58-88d6-61e1326dda47-1403_10_11.jpeg": {
+        "openai": {
+            "name": "بویه خانقاه",
+            "national_id": "1364427860",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "95,008,267",
+            "year": "1401",
+            "month": "آبان",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "سازمان تامین اجتماعی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "106،204،068",
+            "year_and_month": "1401/02/26",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "بویه خانقاه",
+            "national_id": "0136442780",
+            "organization_name": "سازمان تامین اجتماعی",
+            "total_payment": "95,008,267 ریال",
+            "year and month": "1401 آبان",
+            "confidence": 85
+        }
+    },
+    "8944896d-65de-40fb-9cfe-f040d9fbba71-1403_10_11.jpeg": {
+        "openai": {
+            "name": "زهرا سلطان",
+            "national_id": "32969572",
+            "organization_name": "شرکت تدبیر ملت",
+            "total_payment": "88815872",
+            "year": "1401",
+            "month": "تیرماه",
+            "confidence": 80
+        },
+        "llama": {
+            "name": "تیر ماه 1401",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year_and_month": "1401/01",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "زهرا سلطان",
+            "national_id": "2296949577",
+            "organization_name": "تدبیر ملت",
+            "total_payment": "",
+            "year": "1401",
+            "month": "تیر",
+            "confidence": 85
+        }
+    },
+    "c03b2e7e-165a-4cc1-9930-c9905579b1bc-1403_10_11.jpeg": {
+        "openai": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "llama": {
+            "name": "سوله ماموت شدتجار",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "1259325",
+            "year": "1397",
+            "month": "11",
+            "confidence": 70
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year_month": "",
+            "confidence": 0
+        }
+    },
+    "802e8e48-967b-4a75-b90c-60090da4e20f-1403_10_11.jpeg": {
+        "openai": {
+            "name": "مذهدی چطری",
+            "national_id": "17141594",
+            "organization_name": "شرکت کیفیت آزما بادانا",
+            "total_payment": "151,952",
+            "year": "1402",
+            "month": "آذر",
+            "confidence": 75
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "مذهدی چطری",
+            "national_id": "171415942",
+            "organization_name": "",
+            "total_payment": "98255",
+            "year": "1402",
+            "month": "آذر",
+            "confidence": 60
+        }
+    },
+    "7140b343-fe00-47e5-9583-fa282291d4cb-1403_10_11.jpeg": {
+        "openai": {
+            "name": "منوچهر آشیانه",
+            "national_id": "600366",
+            "organization_name": "صندوق بازنشستگی نفت و رفاه کارکنان صنعت",
+            "total_payment": "231,884,268",
+            "year_and_month": "شهریور 1402",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "",
+            "national_id": "862488132",
+            "organization_name": "",
+            "total_payment": "231,884,268",
+            "year": "1402",
+            "month": "",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "منوچهر آشیانه",
+            "national_id": "600366",
+            "organization_name": "صندوق های بازنشستگی پس انداز و رفاه کارگران صنعت نفت",
+            "total_payment": "231,884,268",
+            "year": "1402",
+            "month": "شهریور",
+            "confidence": 90
+        }
+    },
+    "8ec2230c-9ced-4a4f-8aec-c4125857bc14-1403_10_11.jpeg": {
+        "openai": {
+            "name": "رحیمی",
+            "national_id": "",
+            "organization_name": "دفتر پرستاری",
+            "total_payment": "۷۰۸۲۸۶۹",
+            "year": "۱۴۰۲",
+            "month": "",
+            "confidence": 90
+        },
+        "llama": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 0
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "رحیمی",
+            "national_id": "",
+            "organization_name": "دفتر پرستاری",
+            "total_payment": "7892869",
+            "year": "1400",
+            "month": "7",
+            "confidence": 90
+        }
+    },
+    "4024e019-5fcb-4dfb-9bd5-da7470aa3f31-1403_10_11.jpeg": {
+        "openai": {
+            "name": "سید حسن جلیلی",
+            "national_id": "",
+            "organization_name": "شرکت صنایع تولیدی کروز",
+            "total_payment": "231389",
+            "year": "1402",
+            "month": "دی",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "سید حسین حسنی",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "21216527938",
+            "year_and_month": "1398/07",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "سید حسن جلیلی",
+            "national_id": "",
+            "organization_name": "شرکت صنایع تولیدی کروز",
+            "total_payment": "",
+            "year": "1402",
+            "month": "",
+            "confidence": 80
+        }
+    },
+    "ee71c801-121c-4992-9480-259849558668-1403_10_11.jpeg": {
+        "openai": {
+            "name": "حمیدرضا ییران",
+            "national_id": "254233215",
+            "organization_name": "سازمان راهداری و حمل و نقل جاده ای",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 80
+        },
+        "llama": {
+            "name": "سازمان راهداری و حمل و نقل جاده ای",
+            "national_id": "",
+            "organization_name": "",
+            "total_payment": "255,825,383,215",
+            "year_and_month": "1405/08/12",
+            "confidence": 80
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "2560733215",
+            "organization_name": "سازمان راهداری و حمل و نقل جاده ای",
+            "total_payment": "",
+            "year": "",
+            "month": "",
+            "confidence": 85
+        }
+    },
+    "da3af02e-7edf-4197-9651-85fe0c7a42a0-1403_10_11.jpeg": {
+        "openai": {
+            "name": "مهر بی بی حسین زهی زمانی",
+            "national_id": "3719720888",
+            "organization_name": "وزارت آموزش و پرورش",
+            "total_payment": "99,385,482",
+            "year": "1402",
+            "month": "",
+            "confidence": 85
+        },
+        "llama": {
+            "name": "kadprstly kadprstly",
+            "national_id": "8826666665",
+            "organization_name": "sazman adari va astkhdam",
+            "total_payment": "1161010",
+            "year": "1402",
+            "month": "05",
+            "confidence": 90
+        },
+        "mistral_DIDNT_WORKED": {
+            "name": "",
+            "national_id": "",
+            "organization_name": "اعتبار پارسا",
+            "total_payment": "۲۲ و ۲ نومبر",
+            "year_and_month": "۱۳۹۹ هجری شمسی"
+        }
+    }
+}
