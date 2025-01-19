@@ -1,12 +1,12 @@
 <script>
   import { onMount, tick } from "svelte";
 
-  let imageUrl = "/image.jpeg";
+  let imageUrl = "/app/image.jpeg";
   let settings = $state({});
   let sliderValue = $state(50);
   let reloader = $state(false);
-  let uploadedFile = $state("/image.jpeg");
-  let convertedFile = $state("/converted.jpeg");
+  let uploadedFile = $state("/app/image.jpeg");
+  let convertedFile = $state("/app/converted.jpeg");
 
   let convertLoading = $state(false);
   let extractLoading = $state(false);
@@ -19,6 +19,7 @@
   let leftImageTitle = $state("Original Image");
   let rightImageTitle = $state("Converted Image");
 
+const baseUrl = "http://64.176.207.194/";
   async function filesChanged(e) {
     const file = e.target.files[0];
 
@@ -32,7 +33,7 @@
     formData.append("file", file); // Append the file to FormData
 
     // Send the file to the backend via POST request
-    const response = await fetch("http://127.0.0.1:8000/upload", {
+    const response = await fetch(baseUrl + "upload", {
       method: "POST",
       body: formData,
     });
@@ -57,7 +58,7 @@
     extractLoading = true;
 
     try {
-      const res = await fetch("http://localhost:8000/ocr", {
+      const res = await fetch(baseUrl + "ocr", {
         method: "POST",
       }).then((res) => res.json());
 
@@ -66,14 +67,16 @@
       leftImageTitle = "Tesseract";
       rightImageTitle = "Paddle OCR";
 
-      uploadedFile = "/image.jpeg";
-      convertedFile = "/image.jpeg";
+      uploadedFile = "/app/image.jpeg";
+      convertedFile = "/app/image.jpeg";
 
       await tick()
       
       ocr_results = res.tesseract_results;
       ocr_results_converted = res.paddle_results;
 
+
+	setTimeout(() => {
       // Get the actual image and its parent container dimensions
       const parentContainerEl = convertedImageEl.parentElement;
 
@@ -128,6 +131,7 @@
       // Update state or call a function to render the updated results
       ocr_results = updatedOcrResults;
       ocr_results_converted = updatedOcrResultsConverted;
+}, 1000)
     } catch (err) {
       //
     } finally {
@@ -136,7 +140,7 @@
   }
 
   onMount(async () => {
-    const res = await fetch("http://localhost:8000/load").then((res) =>
+    const res = await fetch(baseUrl + "load").then((res) =>
       res.json()
     );
     console.log("initialize", res);
@@ -144,14 +148,14 @@
   });
 
   async function rotateClock() {
-    const res = await fetch("http://localhost:8000/rotate-clock", {
+    const res = await fetch(baseUrl + "rotate-clock", {
       method: "POST",
     }).then((res) => res.json());
     reloader = !reloader;
   }
 
   async function rotateAntiClock() {
-    const res = await fetch("http://localhost:8000/rotate-anticlock", {
+    const res = await fetch(baseUrl + "rotate-anticlock", {
       method: "POST",
     }).then((res) => res.json());
     reloader = !reloader;
@@ -163,7 +167,7 @@
     ocr_results_converted = [];
 
       convertLoading = true
-    const response = await fetch("http://127.0.0.1:8000/convert", {
+    const response = await fetch(baseUrl + "convert", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -191,8 +195,8 @@
 
   $effect(() => {
     console.log(reloader);
-    uploadedFile = `/image.jpeg?t=${new Date()}`;
-    convertedFile = `/converted.jpeg?t=${new Date()}`;
+    uploadedFile = `/app/image.jpeg?t=${new Date()}`;
+    convertedFile = `/app/converted.jpeg?t=${new Date()}`;
   });
 </script>
 
@@ -426,10 +430,10 @@
           bind:value={sliderValue}
           class="absolute left-0 right-0 w-full"
         />
-        <div class="z-40">
+        <div class="pointer-events-none z-40">
           {leftImageTitle}
         </div>
-        <div class="z-40">
+        <div class="pointer-events-none z-40">
           {rightImageTitle}
         </div>
 

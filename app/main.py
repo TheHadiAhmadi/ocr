@@ -1,20 +1,25 @@
 import re
 from typing import Union
+
+from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI,File, UploadFile, HTTPException
 import shutil
 from pathlib import Path
 from starlette.middleware.cors import CORSMiddleware
-import pytesseract
 from PIL import Image, ImageEnhance
 from io import BytesIO
 import numpy as np
 import os
 import cv2
 from paddleocr import PaddleOCR
+import pytesseract
 
 from pydantic import BaseModel
 
 app = FastAPI()
+
+app.mount("/app", StaticFiles(directory="front/build", html=True), name="front")
+
 
 app.add_middleware(
     CORSMiddleware,
@@ -24,12 +29,12 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-TEMP_IMAGE_PATH = "./front/image.jpeg"
+TEMP_IMAGE_PATH = "./front/build/image.jpeg"
 # Path where uploaded files will be stored
-UPLOAD_DIR = Path("./front/static")
+UPLOAD_DIR = Path("./front/build")
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
-pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract-ocr'
+pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
 
 saved_settings = {
     "grayscale": False,
@@ -75,8 +80,8 @@ class ImageSettings(BaseModel):
     brightness: int
     contrast: int  # 0-200
 
-image_path = "./front/static/image.jpeg"
-converted_path = "./front/static/converted.jpeg"
+image_path = "./front/build/image.jpeg"
+converted_path = "./front/build/converted.jpeg"
 
 
 @app.post("/convert")
@@ -217,8 +222,8 @@ async def ocr_fn():
     try:
 
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/static/image.jpeg"
-        converted_path = "./front/static/converted.jpeg"
+        image_path = "./front/build/image.jpeg"
+        converted_path = "./front/build/converted.jpeg"
 
         img = Image.open(image_path)
         converted = Image.open(converted_path)
@@ -289,8 +294,8 @@ async def extract_text():
     try:
 
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/static/image.jpeg"
-        converted_path = "./front/static/converted.jpeg"
+        image_path = "./front/build/image.jpeg"
+        converted_path = "./front/build/converted.jpeg"
 
         img = Image.open(image_path)
         converted = Image.open(converted_path)
@@ -341,8 +346,8 @@ async def extract_text():
 async def extract_text_paddle():
     try:
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/static/image.jpeg"
-        converted_path = "./front/static/converted.jpeg"
+        image_path = "./front/build/image.jpeg"
+        converted_path = "./front/build/converted.jpeg"
 
         # Initialize PaddleOCR
         ocr = PaddleOCR(use_space_char=True, rec_batch_num=10, det_db_thresh=0.3, use_angle_cls=True, lang='fa')  # For Persian (Farsi) text, use 'fa' as language
