@@ -19,6 +19,7 @@
   let leftImageTitle = $state("Original Image");
   let rightImageTitle = $state("Converted Image");
 
+  // const baseUrl = "http://localhost:8000/"
 const baseUrl = "http://64.176.207.194/";
   async function filesChanged(e) {
     const file = e.target.files[0];

@@ -18,6 +18,9 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
+path = "./front/build/"
+# path = "./front/static/"
+
 app.mount("/app", StaticFiles(directory="front/build", html=True), name="front")
 
 
@@ -29,9 +32,11 @@ app.add_middleware(
     allow_headers=["*"],  # Allows all headers
 )
 
-TEMP_IMAGE_PATH = "./front/build/image.jpeg"
+
+
+TEMP_IMAGE_PATH = path + "image.jpeg"
 # Path where uploaded files will be stored
-UPLOAD_DIR = Path("./front/build")
+UPLOAD_DIR = Path(path)
 UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 
 pytesseract.pytesseract.tesseract_cmd = '/usr/bin/tesseract'
@@ -80,8 +85,8 @@ class ImageSettings(BaseModel):
     brightness: int
     contrast: int  # 0-200
 
-image_path = "./front/build/image.jpeg"
-converted_path = "./front/build/converted.jpeg"
+image_path = path + "image.jpeg"
+converted_path = path + "converted.jpeg"
 
 
 @app.post("/convert")
@@ -222,14 +227,14 @@ async def ocr_fn():
     try:
 
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/build/image.jpeg"
-        converted_path = "./front/build/converted.jpeg"
+        image_path = path + "image.jpeg"
+        converted_path = path + "converted.jpeg"
 
         img = Image.open(image_path)
         converted = Image.open(converted_path)
 
         # Use pytesseract to extract detailed OCR data (text, bounding box, and confidence)
-        ocr_data = pytesseract.image_to_data(converted, lang="fas+eng", output_type=pytesseract.Output.DICT)
+        ocr_data = pytesseract.image_to_data(converted, lang="fas+eng", output_type=pytesseract.Output.DICT, config="--psm 6")
        
         # Prepare a list of text data with bounding box and confidence
         tesseract_results = []
@@ -248,8 +253,20 @@ async def ocr_fn():
                     }
                 })
 
-        ocr = PaddleOCR(use_space_char=True, rec_batch_num=10, det_db_thresh=0.3, use_angle_cls=True, lang='fa')  # For Persian (Farsi) text, use 'fa' as language
-   
+        ocr = PaddleOCR(
+            use_angle_cls=True,             # Detect rotated text
+            lang='fa',                      # Use Persian language model
+            # rec_char_dict_path='./dict.txt',
+            # det_algorithm='DB',             # Use DB for text detection
+            rec_algorithm='CRNN',            # Use SRN for recognition
+            rec_image_shape="3, 32, 256",   # Optimized for text line recognition
+            det_db_box_thresh=0.6,          # Detection threshold for better box accuracy
+            rec_model_dir='ch_ppocr_server_v2.0_rec_infer',  # Use higher accuracy recognition model
+            det_model_dir='ch_ppocr_server_v2.0_det_infer',  # Use higher accuracy detection model
+            det_db_unclip_ratio=1.8,        # Adjust text box expansion
+            use_gpu=False                   # Use GPU if available
+        )
+
          # Use PaddleOCR to extract text and bounding boxes
         ocr_result_img = ocr.ocr(converted_path, cls=True)
 
@@ -294,8 +311,8 @@ async def extract_text():
     try:
 
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/build/image.jpeg"
-        converted_path = "./front/build/converted.jpeg"
+        image_path = path + "image.jpeg"
+        converted_path = path + "converted.jpeg"
 
         img = Image.open(image_path)
         converted = Image.open(converted_path)
@@ -346,8 +363,8 @@ async def extract_text():
 async def extract_text_paddle():
     try:
         # Open the image file (make sure it exists in the path)
-        image_path = "./front/build/image.jpeg"
-        converted_path = "./front/build/converted.jpeg"
+        image_path = path + "image.jpeg"
+        converted_path = path + "converted.jpeg"
 
         # Initialize PaddleOCR
         ocr = PaddleOCR(use_space_char=True, rec_batch_num=10, det_db_thresh=0.3, use_angle_cls=True, lang='fa')  # For Persian (Farsi) text, use 'fa' as language
