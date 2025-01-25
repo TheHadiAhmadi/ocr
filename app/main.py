@@ -1,6 +1,6 @@
 import re
 from typing import Union
-
+import easyocr
 from fastapi.staticfiles import StaticFiles
 from fastapi import FastAPI,File, UploadFile, HTTPException
 import shutil
@@ -11,6 +11,7 @@ from io import BytesIO
 import numpy as np
 import os
 import cv2
+import json
 from paddleocr import PaddleOCR
 import pytesseract
 
@@ -18,11 +19,12 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-path = "./front/build/"
-# path = "./front/static/"
+# path = "./front/build/"
+path = "./front/static/"
 
-app.mount("/app", StaticFiles(directory="front/build", html=True), name="front")
+app.mount("/app", StaticFiles(directory="front/static", html=True), name="front")
 
+app.mount('/easyocr', StaticFiles(directory='./samples'), name="easyocr")
 
 app.add_middleware(
     CORSMiddleware,
@@ -152,6 +154,18 @@ async def convert_image(settings: ImageSettings):
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error processing the image: {str(e)}")
     
+@app.get("/load-easy-ocr")
+async def load_easy_ocr():
+    try:
+        # return ../easyocr.json file should return as json object
+        with open('../easyocr.json') as f:
+            data = json.load(f)
+            return data
+        
+
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Error loading processed image: {str(e)}")
+
 @app.get("/load")
 async def load_settings():
     try:
@@ -221,6 +235,47 @@ def reverse_persian_text(text):
     else:
         return text
 
+@app.post("/scale-easyocr")
+async def scale_easyocr(body):
+    scale = body.scale
+    key = body.key
+
+    file_path = "../easyocr.json"
+    new_file_path = "../easyocr2.json"
+    
+    if not os.path.exists(file_path):
+        raise HTTPException(status_code=404, detail="JSON file not found")
+
+
+    # Load the existing JSON data
+    try:
+        with open(file_path, "r") as file:
+            data = json.load(file)
+    except json.JSONDecodeError:
+        raise HTTPException(status_code=500, detail="Invalid JSON file format")
+
+    # Ensure the key exists in the data
+    if body.key not in data:
+        raise HTTPException(status_code=404, detail=f"Key '{body.key}' not found in JSON data")
+
+    # Convert the array of boxes into the new object with scale and boxes
+    boxes = data[body.key]
+    data[body.key] = {
+        "scale": body.scale,
+        "boxes": boxes
+    }
+
+    # Save the updated JSON back to the file
+    try:
+        with open(new_file_path, "w") as file:
+            json.dump(data, file, indent=4)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save JSON file: {str(e)}")
+
+    return {"message": "Scale and boxes updated successfully"}
+
+
+
 
 @app.post("/ocr")
 async def ocr_fn():
@@ -230,28 +285,49 @@ async def ocr_fn():
         image_path = path + "image.jpeg"
         converted_path = path + "converted.jpeg"
 
-        img = Image.open(image_path)
-        converted = Image.open(converted_path)
 
-        # Use pytesseract to extract detailed OCR data (text, bounding box, and confidence)
-        ocr_data = pytesseract.image_to_data(converted, lang="fas+eng", output_type=pytesseract.Output.DICT, config="--psm 6")
+        # Open the image file
+        Image.open(image_path)  # Ensure the image exists
+        Image.open(converted_path)  # Ensure the converted image exists
+
+        # Initialize EasyOCR Reader
+        reader = easyocr.Reader(['fa', 'en'], gpu=False)  # Add Persian (fa) and English (en) languages
+
+        # Perform OCR using EasyOCR
+        ocr_results = reader.readtext(converted_path, detail=1, paragraph=False)
+
+        # img = Image.open(image_path)
+        # converted = Image.open(converted_path)
+
+        # # Use pytesseract to extract detailed OCR data (text, bounding box, and confidence)
+        # ocr_data = pytesseract.image_to_data(converted, lang="fas+eng", output_type=pytesseract.Output.DICT, config="--psm 6")
        
-        # Prepare a list of text data with bounding box and confidence
+        # # Prepare a list of text data with bounding box and confidence
         tesseract_results = []
         paddle_results = []
        
-        for i in range(len(ocr_data['text'])):
-            if int(ocr_data['conf'][i]) > 0:  # Only include text with a valid confidence level
-                tesseract_results.append({
-                    "text": ocr_data['text'][i],
-                    "confidence": int(ocr_data['conf'][i]),
-                    "bounding_box": {
-                        "left": ocr_data['left'][i],
-                        "top": ocr_data['top'][i],
-                        "width": ocr_data['width'][i],
-                        "height": ocr_data['height'][i],
-                    }
-                })
+        # Prepare results list
+        easyocr_results = []
+        for result in ocr_results:
+            bbox, text, confidence = result
+
+            # Prepare bounding box in terms of left, top, width, and height
+            x1, y1 = bbox[0]
+            x2, y2 = bbox[2]
+            width = int(x2 - x1)
+            height = int(bbox[2][1] - bbox[0][1])
+
+            easyocr_results.append({
+                # "text": reverse_persian_text(text),  # Reverse Persian text for correct display
+                "text": text,
+                "confidence": float(confidence) * 100,
+                "bounding_box": {
+                    "left": int(x1),
+                    "top": int(y1),
+                    "width": width,
+                    "height": height
+                }
+            })
 
         ocr = PaddleOCR(
             use_angle_cls=True,             # Detect rotated text
@@ -299,7 +375,7 @@ async def ocr_fn():
                         }
                     })
 
-        return {"tesseract_results": tesseract_results, "paddle_results": paddle_results}
+        return {"tesseract_results": easyocr_results, "paddle_results": paddle_results}
 
     except Exception as e:
         print (e)

@@ -16,11 +16,22 @@
   let mainImageEl = $state(null);
   let convertedImageEl = $state(null);
 
+  let easyocrResults = $state(false);
+  let documents = $state([]);
+  let currentDocumentIndex = $state(0);
+  let currentDocument = $state(null);
+
+  let offsetX = $state(0)
+  let offsetY = $state(0)
+
+  let scaleX = $state(1)
+  let scaleY = $state(1)
+  
   let leftImageTitle = $state("Original Image");
   let rightImageTitle = $state("Converted Image");
 
-  // const baseUrl = "http://localhost:8000/"
-const baseUrl = "http://64.176.207.194/";
+  const baseUrl = "http://localhost:8000/";
+  // const baseUrl = "http://64.176.207.194/";
   async function filesChanged(e) {
     const file = e.target.files[0];
 
@@ -55,6 +66,153 @@ const baseUrl = "http://64.176.207.194/";
     }
   }
 
+  async function exitEasyOcr() {
+    easyocrResults = false;
+  }
+  async function loadEasyOcr() {
+    console.log('loadEasyOcr')
+    try {
+      const res = await fetch(baseUrl + "load-easy-ocr", {
+        method: "GET",
+      }).then((res) => res.json());
+
+      easyocrResults = true;
+      currentDocumentIndex = 0
+
+      for (let key in res) {
+        // // Get the original image dimensions (natural width and height)
+        const originalWidth = mainImageEl.naturalWidth;
+        const originalHeight = mainImageEl.naturalHeight;
+
+        // // Get the current display size of the image (after scaling)
+        const displayWidth = mainImageEl.clientWidth;
+        const displayHeight = mainImageEl.clientHeight;
+
+        // Calculate scale factors based on the current size and the original size
+        let scaleX = displayWidth / originalWidth;
+        let scaleY = displayWidth / originalWidth;
+
+        scaleX = scaleX * displayWidth / window.innerWidth
+        scaleY = scaleY * displayWidth / window.innerWidth
+
+        res[key].url = baseUrl + "easyocr/" + key;
+        let items = []
+
+        let resize_factor = 4
+        for (let item of res[key]) {
+          items.push({
+            text: item.text,
+            confidence: item.confidence,
+            bounding_box: {
+              left: (item.bounding_box.left * scaleX / resize_factor),
+              top: (item.bounding_box.top * scaleY / resize_factor),
+              width: (item.bounding_box.width * scaleX / resize_factor),
+              height: (item.bounding_box.height * scaleY / resize_factor),
+            }
+          });
+        }
+        res[key].boxes = items
+        res[key] = {
+          boxes: res[key].boxes,
+          url: res[key].url,
+          more: {
+            // displayHeight,
+            // displayWidth,
+            // originalWidth,
+            // originalHeight,
+            scaleX,
+            scaleY
+            }
+        }
+
+      }
+
+      documents = res;
+
+      setTimeout(() => {
+        // Get the actual image and its parent container dimensions
+        const parentContainerEl = convertedImageEl.parentElement;
+
+        // Get the original image dimensions (natural width and height)
+        const originalWidth = convertedImageEl.naturalWidth;
+        const originalHeight = convertedImageEl.naturalHeight;
+
+        // Get the current display size of the image (after scaling)
+        const displayWidth = convertedImageEl.clientWidth;
+        const displayHeight = convertedImageEl.clientHeight;
+
+        // Calculate scale factors based on the current size and the original size
+        const scaleX = displayWidth / originalWidth;
+        const scaleY = displayHeight / originalHeight;
+
+        // const scaleX = 2
+        // const scaleY = 2
+
+        // const offsetX = (parentContainerEl.clientWidth - displayWidth) / 2;
+        // const offsetY = (parentContainerEl.clientHeight - displayHeight) / 2;
+
+        // const scaleX = displayWidth / convertedImageEl.naturalWidth;
+        // const scaleY = displayHeight / convertedImageEl.naturalHeight;
+
+        // Update bounding box values based on the scale factors
+        const updatedOcrResults = ocr_results.map((result) => {
+          return {
+            ...result,
+            bounding_box: {
+              left:
+                (result.bounding_box.left * scaleX) / settings.resize_factor,
+              top: (result.bounding_box.top * scaleY) / settings.resize_factor,
+              width:
+                (result.bounding_box.width * scaleX) / settings.resize_factor,
+              height:
+                (result.bounding_box.height * scaleY) / settings.resize_factor,
+            },
+          };
+        });
+
+        const updatedOcrResultsConverted = ocr_results_converted.map(
+          (result) => {
+            return {
+              ...result,
+              bounding_box: {
+                left:
+                  (result.bounding_box.left * scaleX) / settings.resize_factor,
+                top:
+                  (result.bounding_box.top * scaleY) / settings.resize_factor,
+                width:
+                  (result.bounding_box.width * scaleX) / settings.resize_factor,
+                height:
+                  (result.bounding_box.height * scaleY) /
+                  settings.resize_factor,
+              },
+            };
+          }
+        );
+
+        // Update state or call a function to render the updated results
+        ocr_results = updatedOcrResults;
+        ocr_results_converted = updatedOcrResultsConverted;
+      }, 1000);
+      
+      currentDocument = documents[Object.keys(documents)[0]];
+      reloader = !reloader;
+      console.log("load", currentDocument);
+    } catch (err) {
+      //
+    } finally {
+    }
+  }
+
+  function nextDocument() {
+    currentDocument = documents[Object.keys(documents)[++currentDocumentIndex]];
+
+  }
+
+  function prevDocument() {
+    currentDocument = documents[Object.keys(documents)[--currentDocumentIndex]];
+
+  }
+
   async function extractTexts() {
     extractLoading = true;
 
@@ -65,74 +223,82 @@ const baseUrl = "http://64.176.207.194/";
 
       console.log("initialize", res);
 
-      leftImageTitle = "Tesseract";
+      leftImageTitle = "EasyOCR";
       rightImageTitle = "Paddle OCR";
 
       uploadedFile = "/app/image.jpeg";
       convertedFile = "/app/image.jpeg";
 
-      await tick()
-      
+      await tick();
+
       ocr_results = res.tesseract_results;
       ocr_results_converted = res.paddle_results;
 
+      setTimeout(() => {
+        // Get the actual image and its parent container dimensions
+        const parentContainerEl = convertedImageEl.parentElement;
 
-	setTimeout(() => {
-      // Get the actual image and its parent container dimensions
-      const parentContainerEl = convertedImageEl.parentElement;
+        // Get the original image dimensions (natural width and height)
+        const originalWidth = convertedImageEl.naturalWidth;
+        const originalHeight = convertedImageEl.naturalHeight;
 
-      // Get the original image dimensions (natural width and height)
-      const originalWidth = convertedImageEl.naturalWidth;
-      const originalHeight = convertedImageEl.naturalHeight;
+        // Get the current display size of the image (after scaling)
+        const displayWidth = convertedImageEl.clientWidth;
+        const displayHeight = convertedImageEl.clientHeight;
 
-      // Get the current display size of the image (after scaling)
-      const displayWidth = convertedImageEl.clientWidth;
-      const displayHeight = convertedImageEl.clientHeight;
+        // Calculate scale factors based on the current size and the original size
+        const scaleX = displayWidth / originalWidth;
+        const scaleY = displayHeight / originalHeight;
 
-      // Calculate scale factors based on the current size and the original size
-      const scaleX = displayWidth / originalWidth;
-      const scaleY = displayHeight / originalHeight;
+        console.log(displayWidth, originalWidth, displayWidth / originalWidth);
+        // const scaleX = 2
+        // const scaleY = 2
 
-      console.log(displayWidth, originalWidth, displayWidth / originalWidth)
-      // const scaleX = 2
-      // const scaleY = 2
+        // const offsetX = (parentContainerEl.clientWidth - displayWidth) / 2;
+        // const offsetY = (parentContainerEl.clientHeight - displayHeight) / 2;
 
+        // const scaleX = displayWidth / convertedImageEl.naturalWidth;
+        // const scaleY = displayHeight / convertedImageEl.naturalHeight;
 
-      // const offsetX = (parentContainerEl.clientWidth - displayWidth) / 2;
-      // const offsetY = (parentContainerEl.clientHeight - displayHeight) / 2;
+        // Update bounding box values based on the scale factors
+        const updatedOcrResults = ocr_results.map((result) => {
+          return {
+            ...result,
+            bounding_box: {
+              left:
+                (result.bounding_box.left * scaleX) / settings.resize_factor,
+              top: (result.bounding_box.top * scaleY) / settings.resize_factor,
+              width:
+                (result.bounding_box.width * scaleX) / settings.resize_factor,
+              height:
+                (result.bounding_box.height * scaleY) / settings.resize_factor,
+            },
+          };
+        });
 
-      // const scaleX = displayWidth / convertedImageEl.naturalWidth;
-      // const scaleY = displayHeight / convertedImageEl.naturalHeight;
+        const updatedOcrResultsConverted = ocr_results_converted.map(
+          (result) => {
+            return {
+              ...result,
+              bounding_box: {
+                left:
+                  (result.bounding_box.left * scaleX) / settings.resize_factor,
+                top:
+                  (result.bounding_box.top * scaleY) / settings.resize_factor,
+                width:
+                  (result.bounding_box.width * scaleX) / settings.resize_factor,
+                height:
+                  (result.bounding_box.height * scaleY) /
+                  settings.resize_factor,
+              },
+            };
+          }
+        );
 
-      // Update bounding box values based on the scale factors
-      const updatedOcrResults = ocr_results.map((result) => {
-        return {
-          ...result,
-          bounding_box: {
-            left: result.bounding_box.left * scaleX / settings.resize_factor,
-            top: result.bounding_box.top * scaleY / settings.resize_factor,
-            width: result.bounding_box.width * scaleX / settings.resize_factor,
-            height: result.bounding_box.height * scaleY / settings.resize_factor,
-          },
-        };
-      });
-
-      const updatedOcrResultsConverted = ocr_results_converted.map((result) => {
-        return {
-          ...result,
-          bounding_box: {
-            left: result.bounding_box.left * scaleX / settings.resize_factor,
-            top: result.bounding_box.top * scaleY / settings.resize_factor,
-            width: result.bounding_box.width * scaleX / settings.resize_factor,
-            height: result.bounding_box.height * scaleY / settings.resize_factor,
-          },
-        };
-      });
-
-      // Update state or call a function to render the updated results
-      ocr_results = updatedOcrResults;
-      ocr_results_converted = updatedOcrResultsConverted;
-}, 1000)
+        // Update state or call a function to render the updated results
+        ocr_results = updatedOcrResults;
+        ocr_results_converted = updatedOcrResultsConverted;
+      }, 1000);
     } catch (err) {
       //
     } finally {
@@ -141,9 +307,7 @@ const baseUrl = "http://64.176.207.194/";
   }
 
   onMount(async () => {
-    const res = await fetch(baseUrl + "load").then((res) =>
-      res.json()
-    );
+    const res = await fetch(baseUrl + "load").then((res) => res.json());
     console.log("initialize", res);
     settings = res.settings;
   });
@@ -165,33 +329,47 @@ const baseUrl = "http://64.176.207.194/";
   async function convert() {
     try {
       ocr_results = [];
-    ocr_results_converted = [];
+      ocr_results_converted = [];
 
-      convertLoading = true
-    const response = await fetch(baseUrl + "convert", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(settings),
-    });
+      convertLoading = true;
+      const response = await fetch(baseUrl + "convert", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(settings),
+      });
 
-    leftImageTitle = "Original Image";
-    rightImageTitle = "Converted Image";
+      leftImageTitle = "Original Image";
+      rightImageTitle = "Converted Image";
 
-    if (response.ok) {
-      // Refresh the image to reflect changes
-      reloader = !reloader;
-    } else {
-      alert("Error converting the image");
+      if (response.ok) {
+        // Refresh the image to reflect changes
+        reloader = !reloader;
+      } else {
+        alert("Error converting the image");
+      }
+    } catch (err) {
+      //
+    } finally {
+      convertLoading = false;
     }
-  }catch(err) {
-    // 
-  } finally {
-    convertLoading = false
-  }
 
     // call api and reload the image.
+  }
+
+  async function saveScale() {
+    const key = documents[Object.keys(documents)[currentDocumentIndex]];
+    const scale = scaleX
+    const response = await fetch(baseUrl + "scale-easyocr", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({key, scale}),
+      });
+
+
   }
 
   $effect(() => {
@@ -203,7 +381,9 @@ const baseUrl = "http://64.176.207.194/";
 
 <main class="flex bg-[#404244]">
   <!-- Left Form Section -->
-  <div class="w-1/4 p-6 bg-[#232425] text-white border-r border-[#505254] space-y-6">
+  <div
+    class="w-1/4 p-6 bg-[#232425] text-white border-r border-[#505254] space-y-6"
+  >
     <input type="file" name="file" id="" onchange={filesChanged} />
 
     <div class="flex gap-4 items-center">
@@ -328,33 +508,174 @@ const baseUrl = "http://64.176.207.194/";
       >
         Extract Texts
       </button>
+      {#if easyocrResults}
+
+        <button
+          onclick={exitEasyOcr}
+          type="button"
+          class="w-full px-4 py-2 data-[loading=true]:opacity-50 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
+        >
+          Exit EasyOCR
+        </button>
+        <button
+          onclick={saveScale}
+          type="button"
+          class="w-full px-4 py-2 data-[loading=true]:opacity-50 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
+        >
+          Save Scale
+        </button>
+
+        <div class="flex gap-4 items-center">
+          <button
+            onclick={prevDocument}
+            class="flex items-center justify-center w-full px-4 py-2 border border-blue-500 text-blue-500 font-semibold rounded-lg hover:text-white hover:bg-blue-600"
+          >
+           Prev
+          </button>
+          <div class="flex items-center justify-center w-full px-4 py-2 text-blue-500 font-semibold">
+            {currentDocumentIndex + 1} / {Object.keys(documents).length}
+          </div>
+          <button
+            onclick={nextDocument}
+            class="flex items-center justify-center w-full px-4 py-2 border border-blue-500 text-blue-500 font-semibold rounded-lg hover:text-white hover:bg-blue-600"
+          >
+            Next
+          </button>
+        </div>
+      {:else}
+      <button
+        onclick={loadEasyOcr}
+        type="button"
+        class="w-full px-4 py-2 data-[loading=true]:opacity-50 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-600"
+      >
+        Load EasyOCR Results
+      </button>
+      {/if}
     </div>
   </div>
 
-  {#key reloader}
-    <!-- Right Image Section -->
-    <div class="flex items-center justify-center w-3/4 p-6">
-      <!-- Image with dynamic styles based on form inputs -->
-      <!-- Image comparison slider -->
-      <div class="border border-[#505254] preview relative w-full h-full bg-[#404244] overflow-auto">
+  {#if easyocrResults}
+    <div class="flex flex-col items-center justify-center w-3/4 p-6">
+      <div>
+        <input type="range" min="0" max="2" step="0.001" bind:value={scaleX} id=""> {scaleX} {mainImageEl.naturalWidth} {mainImageEl.clientWidth} { mainImageEl.clientWidth / mainImageEl.naturalWidth}
+      </div>
+    
+      <div
+        class="border border-[#505254] preview relative w-full h-full bg-[#404244] overflow-auto"
+      >
         <!-- Container for the images -->
+          <div class="absolute w-full">
+            <!-- Original Image -->
+            <div class="max-content h-full">
+              <img
+                bind:this={mainImageEl}
+                src={currentDocument?.url}
+                alt="Original Image"
+                class="w-full h-full object-contain object-left-top"
+              />
+
+              <svg
+                class="absolute top-0 left-0 w-full h-full pointer-events-none"
+              >
+                {#each currentDocument?.boxes ?? [] as result}
+                  {@const color =
+                    result.confidence > 90
+                      ? "green"
+                      : result.confidence > 75
+                        ? "yellow"
+                        : result.confidence > 50
+                          ? "red"
+                          : "black"}
+                  <rect
+                    x={result.bounding_box.left * scaleX}
+                    y={result.bounding_box.top * scaleX}
+                    width={result.bounding_box.width * scaleX}
+                    height={result.bounding_box.height * scaleX}
+                    stroke={color}
+                    onclick={(e) => e.target.classList.add("hidden")}
+                    fill="none"
+                    stroke-width="1"
+                    class="cursor-pointer fill-black/5 hover:fill-gray-200/20"
+                  >
+                    <title>{result.text} ({result.confidence}%)</title>
+                  </rect>
+                {/each}
+                <!-- Rectangles will be inserted here -->
+              </svg>
+            </div>
+          </div>
+        </div>
+    </div>
+  {:else}
+    {#key reloader}
+      <!-- Right Image Section -->
+      <div class="flex items-center justify-center w-3/4 p-6">
+        <!-- Image with dynamic styles based on form inputs -->
+        <!-- Image comparison slider -->
         <div
-          class="absolute w-full"
-          style="clip-path: inset(0 calc({100 - sliderValue}% + 0.5px) 0 0);"
+          class="border border-[#505254] preview relative w-full h-full bg-[#404244] overflow-auto"
         >
-          <!-- Original Image -->
-          <div class="max-content h-full">
+          <!-- Container for the images -->
+          <div
+            class="absolute w-full"
+            style="clip-path: inset(0 calc({100 - sliderValue}% + 0.5px) 0 0);"
+          >
+            <!-- Original Image -->
+            <div class="max-content h-full">
+              <img
+                bind:this={mainImageEl}
+                src={uploadedFile}
+                alt="Original Image"
+                class="w-full h-full object-contain object-left-top"
+              />
+
+              <svg
+                class="absolute top-0 left-0 w-full h-full pointer-events-none"
+              >
+                {#each ocr_results as result}
+                  {@const color =
+                    result.confidence > 90
+                      ? "green"
+                      : result.confidence > 75
+                        ? "yellow"
+                        : result.confidence > 50
+                          ? "red"
+                          : "black"}
+                  <rect
+                    x={result.bounding_box.left}
+                    y={result.bounding_box.top}
+                    width={result.bounding_box.width}
+                    height={result.bounding_box.height}
+                    stroke={color}
+                    onclick={(e) => e.target.classList.add("hidden")}
+                    fill="none"
+                    stroke-width="1"
+                    class="cursor-pointer fill-black/5 hover:fill-gray-200/20"
+                  >
+                    <title>{result.text} ({result.confidence}%)</title>
+                  </rect>
+                {/each}
+                <!-- Rectangles will be inserted here -->
+              </svg>
+            </div>
+          </div>
+
+          <!-- Converted Image (this one will be cropped based on the slider) -->
+          <div
+            class="absolute w-full"
+            style="clip-path: inset(0 0 0 calc({sliderValue}% + 0.5px));"
+          >
             <img
-              bind:this={mainImageEl}
-              src={uploadedFile}
-              alt="Original Image"
+              bind:this={convertedImageEl}
+              src={convertedFile}
+              alt="Converted Image"
               class="w-full h-full object-contain object-left-top"
             />
 
             <svg
               class="absolute top-0 left-0 w-full h-full pointer-events-none"
             >
-              {#each ocr_results as result}
+              {#each ocr_results_converted as result}
                 {@const color =
                   result.confidence > 90
                     ? "green"
@@ -364,6 +685,7 @@ const baseUrl = "http://64.176.207.194/";
                         ? "red"
                         : "black"}
                 <rect
+                  title={result.text}
                   x={result.bounding_box.left}
                   y={result.bounding_box.top}
                   width={result.bounding_box.width}
@@ -380,72 +702,29 @@ const baseUrl = "http://64.176.207.194/";
               <!-- Rectangles will be inserted here -->
             </svg>
           </div>
+          <div
+            class="sticky flex justify-between text-sm px-2 font-bold text-white left-0 top-0"
+          >
+            <input
+              type="range"
+              min="0"
+              max="100"
+              bind:value={sliderValue}
+              class="absolute left-0 right-0 w-full"
+            />
+            <div class="pointer-events-none z-40">
+              {leftImageTitle}
+            </div>
+            <div class="pointer-events-none z-40">
+              {rightImageTitle}
+            </div>
+          </div>
         </div>
 
-        <!-- Converted Image (this one will be cropped based on the slider) -->
-        <div
-          class="absolute w-full"
-          style="clip-path: inset(0 0 0 calc({sliderValue}% + 0.5px));"
-        >
-          <img
-            bind:this={convertedImageEl}
-            src={convertedFile}
-            alt="Converted Image"
-            class="w-full h-full object-contain object-left-top"
-          />
-
-          <svg class="absolute top-0 left-0 w-full h-full pointer-events-none">
-            {#each ocr_results_converted as result}
-              {@const color =
-                result.confidence > 90
-                  ? "green"
-                  : result.confidence > 75
-                    ? "yellow"
-                    : result.confidence > 50
-                      ? "red"
-                      : "black"}
-              <rect
-                title={result.text}
-                x={result.bounding_box.left}
-                y={result.bounding_box.top}
-                width={result.bounding_box.width}
-                height={result.bounding_box.height}
-                stroke={color}
-                onclick={(e) => e.target.classList.add("hidden")}
-                fill="none"
-                stroke-width="1"
-                class="cursor-pointer fill-black/5 hover:fill-gray-200/20"
-              >
-                <title>{result.text} ({result.confidence}%)</title>
-              </rect>
-            {/each}
-            <!-- Rectangles will be inserted here -->
-          </svg>
-        </div>
-        <div class="sticky flex justify-between text-sm px-2 font-bold text-white left-0 top-0">
-      
-          <input
-          type="range"
-          min="0"
-          max="100"
-          bind:value={sliderValue}
-          class="absolute left-0 right-0 w-full"
-        />
-        <div class="pointer-events-none z-40">
-          {leftImageTitle}
-        </div>
-        <div class="pointer-events-none z-40">
-          {rightImageTitle}
-        </div>
-
-        </div>
-
-      
+        <!-- Slider to control the mask -->
       </div>
-
-      <!-- Slider to control the mask -->
-    </div>
-  {/key}
+    {/key}
+  {/if}
 </main>
 
 <style>
